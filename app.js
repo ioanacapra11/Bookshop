@@ -1,12 +1,15 @@
 const express = require("express");
-
+const firebase = require("firebase-admin");
 const Users = require("./database");
 
 const bodyParser = require("body-parser");
 
+const auth = require("./routes/auth.js");
+
 const app = express();
 
 app.use(bodyParser.json());
+app.use("/", auth); 
 
 const PORT = 3000;
 
