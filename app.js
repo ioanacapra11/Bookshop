@@ -1,17 +1,38 @@
 const express = require("express");
-const firebase = require("firebase-admin");
-const Users = require("./database");
-
-const bodyParser = require("body-parser");
-
-const auth = require("./routes/auth.js");
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use("/", auth); 
+const admin = require("firebase-admin");
 
-const PORT = 3000;
+const credentials = require("./serviceAccountKey.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(credentials)
+});
+
+app.use(express.json());
+
+app.use(express.urlencoded({extended: true})); 
+
+app.post('/signup', async (req, res) => {
+
+    console.log(req.body);
+
+    const user = {
+        email: req.body.email,
+        password: req.body.password
+    }
+
+    const userResponse = await admin.auth().createUser({
+        email: user.email,
+        password: user.password,
+        emailVerified: false,
+        disabled: false
+    });
+    res.json(userResponse); 
+})
+
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, (err) => {
     if(err) console.log(err);
