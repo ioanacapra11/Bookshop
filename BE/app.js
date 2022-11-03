@@ -1,10 +1,11 @@
 const express = require("express");
 const app = express();
 const authRoutes = require("./routes/auth.js");
+const cors = require("cors");
 
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use("/", authRoutes);
 
 const PORT = process.env.PORT || 8080;
