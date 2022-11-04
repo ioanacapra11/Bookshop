@@ -7,23 +7,23 @@ import {useNavigation} from '@react-navigation/native';
 
 const url = 'http://localhost:8080';
 
-const SignInScreen = () => {
+const SignUpScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
 
-  const onSignInPressed = () => {
-    console.warn('Sign in');
+  const onSignUpPressed = () => {
+    console.warn('Sign up');
     axios
-      .post(`http://10.0.2.2:8080/signin`, {email, password})
+      .post(`http://10.0.2.2:8080/signup`, {email, password})
       .then(res => console.log(JSON.stringify(res.data)))
       .catch(err => console.log('err: ' + err));
   };
 
-  const onCreateAccount = () => {
-    console.warn('Create account');
-    navigation.navigate('SignUp');
+  const onSignUpIntoAccount = () => {
+    console.warn('Sign up into your account');
+    navigation.navigate('SignIn');
   };
 
   return (
@@ -35,12 +35,15 @@ const SignInScreen = () => {
         setValue={setPassword}
         secureTextEntry={true}
       />
-      <CustomButton text="Sign In" onPress={onSignInPressed} />
-      <CustomButton text="Create account" onPress={onCreateAccount} />
+      <CustomButton text="Sign Up" onPress={onSignUpPressed} />
+      <CustomButton
+        text="Sign up into your account"
+        onPress={onSignUpIntoAccount}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({root: {alignItems: 'center', padding: 20}});
 
-export default SignInScreen;
+export default SignUpScreen;
