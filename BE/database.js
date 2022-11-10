@@ -1,4 +1,6 @@
 const { initializeApp } = require("firebase/app");
+const { getFirestore, doc, setDoc } = require("firebase/firestore");
+require("firebase/firestore");
 
 const firebaseConfig = {
   apiKey: "AIzaSyDBsomEZoFgPVAjcn5UkPhwmb4KIQjZCd0",
@@ -11,5 +13,6 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
 
-module.exports = firebaseApp;
+module.exports = { db, firebaseApp };
