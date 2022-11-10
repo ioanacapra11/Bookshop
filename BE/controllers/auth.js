@@ -4,7 +4,7 @@ const {
   createUserWithEmailAndPassword,
 } = require("firebase/auth");
 
-const firebaseApp = require("../database.js");
+const { firebaseApp } = require("../database.js");
 
 exports.signup = async (req, res) => {
   const auth = getAuth();
